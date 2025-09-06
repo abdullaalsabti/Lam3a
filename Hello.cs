@@ -2,7 +2,6 @@ using System.Runtime.InteropServices;
 
 sfdkjvbekj fkjesrnjierw
 
-Hi My name is Omar
+woiefhwepoqfuoiuwehfjwfuiqohifuk
 
-
-You are GAY
+SAAD IS GAY
