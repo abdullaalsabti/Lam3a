@@ -1,0 +1,45 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# User-specific
+*.user
+*.rsuser
+*.suo
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+*.nuget.props
+*.nuget.targets
+packages/
+
+# ASP.NET Core configs
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# Environment files
+*.env
+.env.local
+.env.*.local
+
+# Logs & crash dumps
+*.log
+*.dmp
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# System / OS files
+.DS_Store
+Thumbs.db
