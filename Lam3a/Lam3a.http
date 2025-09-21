@@ -1,0 +1,6 @@
+@Lam3a_HostAddress = http://localhost:5190
+
+GET {{Lam3a_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

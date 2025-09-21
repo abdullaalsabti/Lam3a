@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "jwoMvl9p6OE=",
+  "success": true,
+  "projectFilePath": "/Users/abdullaal-sabti/Documents/PSUT/GP/Lam3a-backend/Lam3a/Lam3a.csproj",
+  "expectedPackageFiles": [
+    "/Users/abdullaal-sabti/.nuget/packages/microsoft.aspnetcore.openapi/9.0.7/microsoft.aspnetcore.openapi.9.0.7.nupkg.sha512",
+    "/Users/abdullaal-sabti/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
