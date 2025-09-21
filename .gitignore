@@ -1,0 +1,23 @@
+# Build outputs
+bin/
+obj/
+
+# Rider / IntelliJ IDEA
+.idea/
+*.sln.iml
+
+# VS/VS Code user settings
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# macOS system files
+.DS_Store
+
+# Logs
+*.log
+
+# Test results
+TestResult*/
