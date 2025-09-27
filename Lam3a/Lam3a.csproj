@@ -10,4 +10,16 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Cache\" />
+      <Folder Include="Controllers\" />
+      <Folder Include="Data\Configuration\" />
+      <Folder Include="Data\Dto\" />
+      <Folder Include="Data\Entities\" />
+      <Folder Include="Messaging\" />
+      <Folder Include="Middleware\" />
+      <Folder Include="Services\Authentication\" />
+      <Folder Include="Utils\" />
+    </ItemGroup>
+
 </Project>
