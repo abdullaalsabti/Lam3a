@@ -7,6 +7,7 @@ public class ServiceProvider : User
     public decimal Rating { get; set; }
     public bool Availability { get; set; }
 
-    // Composite collection: schedule
+    // Navigation Properties:
     public List<Schedule> Schedules { get; set; } = new();
+    public List<Service> Services { get; set; } = new();
 }

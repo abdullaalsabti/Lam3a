@@ -10,6 +10,12 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
     {
         builder.ToTable("Addresses").HasKey(a => a.AddressId);
 
-        builder.OwnsOne(a => a.MapCoordinates, coordinates => { });
+        builder.OwnsOne(
+            a => a.MapCoordinates,
+            coordinates =>
+            {
+                // can change column display name later here...
+            }
+        );
     }
 }

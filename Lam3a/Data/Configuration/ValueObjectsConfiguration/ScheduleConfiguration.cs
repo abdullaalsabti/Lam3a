@@ -10,6 +10,12 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
     {
         builder.ToTable("Schedules").HasKey(s => s.ScheduleId);
 
-        builder.OwnsOne(s => s.TimeRange, tr => { });
+        builder.OwnsOne(
+            s => s.TimeRange,
+            tr =>
+            {
+                //can customize column names here later but no need now...s
+            }
+        );
     }
 }
