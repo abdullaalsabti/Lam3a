@@ -2,7 +2,7 @@ namespace Lam3a.Data.Entities;
 
 public class Service
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public required string Name { get; set; }
     public required decimal Price { get; set; }
     public required string Description { get; set; }
@@ -10,4 +10,5 @@ public class Service
 
     public Guid UserId { get; set; }
     public ServiceProvider ServiceProvider { get; set; }
+    public List<ServiceRequest> ServiceRequests { get; set; }
 }
