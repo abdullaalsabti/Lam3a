@@ -1,40 +1,28 @@
-using System.Text.RegularExpressions;
 using FluentValidation;
 
 namespace Lam3a.Dto;
 
-public class SendOtpDto
+public class VerifyPhoneDto
 {
-    public string Email { get; set; } = string.Empty;
-    public string Phone { get; set; } = string.Empty;
+    public Guid UserId { get; set; }
+    public string FirebaseIdToken { get; set; } // Token from Flutter after OTP verification
+    public string Phone { get; set; }
 }
 
-public class SendOtpDtoValidator : AbstractValidator<SendOtpDto>
+public class VerifyPhoneDtoValidator : AbstractValidator<VerifyPhoneDto>
 {
-    public SendOtpDtoValidator()
+    public VerifyPhoneDtoValidator()
     {
-        RuleFor(x => x.Email)
-            .NotEmpty()
-            .WithMessage("Email is required")
-            .EmailAddress()
-            .WithMessage("Email is invalid");
+        RuleFor(x => x.UserId).NotEmpty().WithMessage("UserId is required.");
+
+        RuleFor(x => x.FirebaseIdToken).NotEmpty().WithMessage("Firebase ID token is required.");
 
         RuleFor(x => x.Phone)
             .NotEmpty()
-            .WithMessage("Phone number is required")
-            .Must(BeValidJordanianNumber)
+            .WithMessage("Phone number is required.")
+            .Matches(@"^\+9627\d{8}$") // Jordanian mobile numbers only
             .WithMessage(
-                "Invalid Jordanian mobile number must start with +962 7 and contain 9 digits after the prefix."
+                "Phone number must be a valid Jordanian mobile number in 'E.164' format (+9627XXXXXXXX)."
             );
-    }
-
-    private bool BeValidJordanianNumber(string? phone)
-    {
-        if (phone == null || phone.Trim().Length == 0)
-            return false;
-
-        //regex that should check if it's a valid Jordanian Number.
-        var pattern = @"^\+9627\d{8}$";
-        return Regex.IsMatch(phone, pattern);
     }
 }

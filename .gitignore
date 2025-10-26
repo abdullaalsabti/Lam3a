@@ -25,3 +25,5 @@ TestResult*/
 # env files
 *.env
 .env
+
+/Firebase/lam3a-2da08-firebase-adminsdk-fbsvc-a7ab52be29.json

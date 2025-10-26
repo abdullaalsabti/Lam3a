@@ -1,12 +1,27 @@
+using System.Text;
 using DotNetEnv;
+using FirebaseAdmin;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Google.Apis.Auth.OAuth2;
 using Lam3a.Data;
 using Lam3a.Dto;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 Env.Load();
+
+if (FirebaseApp.DefaultInstance == null)
+    FirebaseApp.Create(
+        new AppOptions
+        {
+            Credential = GoogleCredential.FromFile(
+                "Firebase/lam3a-2da08-firebase-adminsdk-fbsvc-a7ab52be29.json"
+            ),
+        }
+    );
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +29,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-// AUTOMATIC FLUENT VALIDATORS:
+// AUTOMATIC FLUENT VALIDATORS FOR DTOs:
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<LoginDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterCredentialsDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<VerifyPhoneDtoValidator>();
 
 // DATABASE CONFIG AND DB CONTEXT.
 var dbPassword =
@@ -28,6 +44,29 @@ var defaultConnection =
     builder.Configuration.GetConnectionString("DefaultConnection") + $"Password={dbPassword};";
 
 builder.Services.AddDbContext<DataContextEf>(options => options.UseNpgsql(defaultConnection));
+
+//AUTHENTICATION JWT BEARER
+var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!);
+
+builder
+    .Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidIssuer = "Lam3aAPI",
+            ValidateAudience = true,
+            ValidAudience = "Lam3aClient",
+        };
+    });
+
+builder.Services.AddAuthorization();
 
 // CACHING
 builder.Services.AddHybridCache(options =>
@@ -74,6 +113,8 @@ else if (app.Environment.IsProduction())
 }
 
 // MIDDLEWARE
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseRequestTimeouts();
 app.MapControllers().RequireRateLimiting("per-user").WithRequestTimeout(TimeSpan.FromSeconds(10));
