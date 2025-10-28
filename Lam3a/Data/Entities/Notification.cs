@@ -9,4 +9,5 @@ public class Notification
 
     //Navigation Properties:
     public Guid UserId { get; set; } // Reference to the user
+    public User User { get; set; } = null!;
 }

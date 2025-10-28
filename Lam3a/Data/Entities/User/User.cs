@@ -15,6 +15,8 @@ public abstract class User
     public required Gender Gender { get; set; } = Gender.Male;
     public required Role Role { get; set; } = Role.Client;
 
+    public UserAccountStatus UserAccountStatus { get; set; } = UserAccountStatus.Unverified;
+
     //Navigation Properties:
     public List<Notification> Notifications { get; set; } = new();
     public DateTime DateOfBirth { get; set; }
