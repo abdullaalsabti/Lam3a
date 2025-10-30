@@ -139,7 +139,7 @@ public class AuthController : ControllerBase
                 user.PasswordSalt
             )
         )
-            return Unauthorized("Invalid credentials");
+            return Unauthorized(new { message = "Invalid credentials" });
 
         // Generate JWT
         var jwt = AuthService.GenerateJwtToken(

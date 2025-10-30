@@ -117,5 +117,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseRequestTimeouts();
-app.MapControllers().RequireRateLimiting("per-user").WithRequestTimeout(TimeSpan.FromSeconds(10));
+app.MapControllers().RequireRateLimiting("per-user").WithRequestTimeout(TimeSpan.FromSeconds(10)); //ADD TIMEOUTS PER-USER POLICY
 app.Run();
