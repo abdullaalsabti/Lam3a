@@ -5,7 +5,7 @@ namespace Lam3a.Data.Entities;
 
 public class ServiceRequest
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public TimeRange TimeRange { get; set; } = new();
     public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
     public ServiceStatus Status { get; set; }
@@ -13,5 +13,5 @@ public class ServiceRequest
     //Navigation Properties:
     public Address Address { get; set; }
     public Guid ServiceId { get; set; }
-    public Service Service { get; set; }
+    public ProviderService ProviderService { get; set; }
 }

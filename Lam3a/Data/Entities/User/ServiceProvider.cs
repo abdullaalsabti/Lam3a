@@ -1,3 +1,4 @@
+using Lam3a.Data.Configuration;
 using Lam3a.Data.ValueObjects;
 
 namespace Lam3a.Data.Entities;
@@ -9,5 +10,7 @@ public class ServiceProvider : User
 
     // Navigation Properties:
     public List<Schedule> Schedules { get; set; } = new();
-    public List<Service> Services { get; set; } = new();
+    public List<ProviderService> Services { get; set; } = new();
+
+    public List<FavoriteProvider> FavoritedByClients { get; set; } = new();
 }
