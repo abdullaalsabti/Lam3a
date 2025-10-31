@@ -5,17 +5,25 @@ namespace Lam3a.Dto;
 
 public class ClientProfileDto
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string FirstName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
     public Gender Gender { get; set; }
     public DateTime DateOfBirth { get; set; }
 
-    //address related:
-    public string Street { get; set; }
-    public string BuildingNumber { get; set; }
+    public AddressDto Address { get; set; } = new();
+}
+
+public class AddressDto
+{
+    public string Street { get; set; } = null!;
+    public string BuildingNumber { get; set; } = null!;
     public string Landmark { get; set; } = string.Empty;
 
-    //coordinates related:
+    public CoordinatesDto Coordinates { get; set; } = new();
+}
+
+public class CoordinatesDto
+{
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
 }
@@ -36,10 +44,8 @@ public class ClientProfileDtoValidator : AbstractValidator<ClientProfileDto>
             .MaximumLength(50)
             .WithMessage("Last name cannot exceed 50 characters.");
 
-        // Gender validation
         RuleFor(x => x.Gender).IsInEnum().WithMessage("Invalid gender value.");
 
-        // Date of Birth validation
         RuleFor(x => x.DateOfBirth)
             .NotEmpty()
             .WithMessage("Date of birth is required.")
@@ -48,7 +54,15 @@ public class ClientProfileDtoValidator : AbstractValidator<ClientProfileDto>
             .GreaterThan(DateTime.UtcNow.AddYears(-120))
             .WithMessage("Date of birth is unrealistic.");
 
-        // Address validation
+        // Nested address validator
+        RuleFor(x => x.Address).SetValidator(new AddressDtoValidator());
+    }
+}
+
+public class AddressDtoValidator : AbstractValidator<AddressDto>
+{
+    public AddressDtoValidator()
+    {
         RuleFor(x => x.Street)
             .NotEmpty()
             .WithMessage("Street is required.")
@@ -65,7 +79,15 @@ public class ClientProfileDtoValidator : AbstractValidator<ClientProfileDto>
             .MaximumLength(100)
             .WithMessage("Landmark cannot exceed 100 characters.");
 
-        // Coordinates validation
+        // Nested coordinates validator
+        RuleFor(x => x.Coordinates).SetValidator(new CoordinatesDtoValidator());
+    }
+}
+
+public class CoordinatesDtoValidator : AbstractValidator<CoordinatesDto>
+{
+    public CoordinatesDtoValidator()
+    {
         RuleFor(x => x.Latitude)
             .InclusiveBetween(-90, 90)
             .WithMessage("Latitude must be between -90 and 90.");
