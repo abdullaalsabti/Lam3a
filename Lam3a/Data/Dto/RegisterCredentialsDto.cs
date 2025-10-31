@@ -10,9 +10,9 @@ public class RegisterCredentialsDto
     public Role Role { get; set; }
 }
 
-public abstract class RegisterCredentialsDtoValidator : AbstractValidator<RegisterCredentialsDto>
+public class RegisterCredentialsDtoValidator : AbstractValidator<RegisterCredentialsDto>
 {
-    protected RegisterCredentialsDtoValidator()
+    public RegisterCredentialsDtoValidator()
     {
         RuleFor(x => x.Email)
             .NotEmpty()

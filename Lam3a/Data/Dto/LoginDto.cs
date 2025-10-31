@@ -8,9 +8,9 @@ public class LoginDto
     public string Password { get; set; }
 }
 
-public abstract class LoginDtoValidator : AbstractValidator<LoginDto>
+public class LoginDtoValidator : AbstractValidator<LoginDto>
 {
-    protected LoginDtoValidator()
+    public LoginDtoValidator()
     {
         RuleFor(x => x.Email)
             .NotEmpty()

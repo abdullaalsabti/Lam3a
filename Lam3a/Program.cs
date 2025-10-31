@@ -30,10 +30,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 // AUTOMATIC FLUENT VALIDATORS FOR DTOs:
-builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<LoginDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterCredentialsDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<VerifyPhoneDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<ClientProfileDtoValidator>();
 
 // DATABASE CONFIG AND DB CONTEXT.
 var dbPassword =
