@@ -82,7 +82,7 @@ builder.Services.AddRequestTimeouts(options =>
 {
     options.DefaultPolicy = new RequestTimeoutPolicy
     {
-        Timeout = TimeSpan.FromSeconds(10),
+        Timeout = TimeSpan.FromSeconds(20),
         TimeoutStatusCode = StatusCodes.Status408RequestTimeout,
         WriteTimeoutResponse = async context =>
         {
