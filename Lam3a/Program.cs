@@ -29,7 +29,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-// AUTOMATIC FLUENT VALIDATORS FOR DTOs:
+// AUTOMATIC FLUENT VALIDATORS FOR DTO(s):
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<LoginDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterCredentialsDtoValidator>();
@@ -82,7 +82,7 @@ builder.Services.AddRequestTimeouts(options =>
 {
     options.DefaultPolicy = new RequestTimeoutPolicy
     {
-        Timeout = TimeSpan.FromSeconds(10),
+        Timeout = TimeSpan.FromSeconds(20),
         TimeoutStatusCode = StatusCodes.Status408RequestTimeout,
         WriteTimeoutResponse = async context =>
         {
