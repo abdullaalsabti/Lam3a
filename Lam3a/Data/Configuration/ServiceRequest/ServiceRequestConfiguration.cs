@@ -16,5 +16,10 @@ public class ServiceRequestConfiguration : IEntityTypeConfiguration<ServiceReque
                 //can customize column names here later but no need now...
             }
         );
+        builder
+            .HasOne(sr => sr.ProviderService)
+            .WithMany(s => s.ServiceRequests)
+            .HasForeignKey(sr => sr.ServiceId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

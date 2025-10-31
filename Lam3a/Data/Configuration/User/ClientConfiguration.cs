@@ -8,6 +8,7 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
 {
     public void Configure(EntityTypeBuilder<Client> builder)
     {
+        //FIXME: do we need this clients table aslan? it currently only stores userId...
         builder.ToTable("Clients");
     }
 }
