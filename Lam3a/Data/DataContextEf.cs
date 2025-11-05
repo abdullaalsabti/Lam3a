@@ -14,10 +14,14 @@ public class DataContextEf : DbContext
     //User Related:
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-    public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Address> Addresses { get; set; }
+    
+    //vehicle related
+    public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<VehicleModel> VehicleModels { get; set; }
+    public DbSet<VehicleBrand> VehicleBrands { get; set; }
 
     //Services:
     public DbSet<ProviderService> ProviderServices { get; set; }

@@ -13,15 +13,6 @@ using Microsoft.IdentityModel.Tokens;
 
 Env.Load();
 
-if (FirebaseApp.DefaultInstance == null)
-    FirebaseApp.Create(
-        new AppOptions
-        {
-            Credential = GoogleCredential.FromFile(
-                "Firebase/lam3a-2da08-firebase-adminsdk-fbsvc-a7ab52be29.json"
-            ),
-        }
-    );
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +28,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<VerifyPhoneDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<ClientProfileDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<AddressDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CoordinatesDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<VehicleDTOValidator>();
 
 // DATABASE CONFIG AND DB CONTEXT.
 var dbPassword =
