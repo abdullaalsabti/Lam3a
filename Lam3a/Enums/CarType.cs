@@ -2,7 +2,7 @@
 
 public enum CarType
 {
-    Sadan,
+    Sedan,
     Suv,
-    Bike
+    Bike,
 }
