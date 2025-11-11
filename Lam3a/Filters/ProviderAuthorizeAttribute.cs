@@ -58,7 +58,7 @@ public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
         }
 
         // Store the user entity in HttpContext.Items so the controller can access it
-        context.HttpContext.Items["provider"] = provider;
+        context.HttpContext.Items["Provider"] = provider;
 
         await next();
     }
