@@ -1,9 +1,7 @@
 using System.Text;
 using DotNetEnv;
-using FirebaseAdmin;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Google.Apis.Auth.OAuth2;
 using Lam3a.Data;
 using Lam3a.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 Env.Load();
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,11 +85,6 @@ builder.Services.AddRequestTimeouts(options =>
     };
 });
 
-// CORS
-builder.Services.AddCors(options =>
-{
-    //define CORS policy.
-});
 var app = builder.Build();
 
 // CONFIGURE THE HTTP REQUEST PIPELINE.

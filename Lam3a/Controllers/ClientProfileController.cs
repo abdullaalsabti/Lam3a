@@ -2,6 +2,7 @@ using Lam3a.Data;
 using Lam3a.Data.Entities;
 using Lam3a.Dto;
 using Lam3a.Filters;
+using Lam3a.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,28 +24,12 @@ public class ClientProfileController : ControllerBase
 
     //SECTION: ADD PROFILE
     [HttpPut("editProfile", Name = "EditProfile")]
-    public async Task<IActionResult> EditProfile([FromBody] ClientProfileDto clientProfileDto)
+    public async Task<IActionResult> EditProfile([FromBody] ProfileDto profileDto)
     {
         var clientEntity = HttpContext.Items["Client"] as Client;
 
         // Update profile info
-        clientEntity!.FirstName = clientProfileDto.FirstName;
-        clientEntity.LastName = clientProfileDto.LastName;
-        clientEntity.Gender = clientProfileDto.Gender;
-        clientEntity.DateOfBirth = clientProfileDto.DateOfBirth;
-
-        // Update address
-        clientEntity.Address.Street = clientProfileDto.Address.Street;
-        clientEntity.Address.BuildingNumber = clientProfileDto.Address.BuildingNumber;
-        clientEntity.Address.Landmark = clientProfileDto.Address.Landmark;
-        clientEntity.Address.MapCoordinates.Latitude = clientProfileDto
-            .Address
-            .Coordinates
-            .Latitude;
-        clientEntity.Address.MapCoordinates.Longitude = clientProfileDto
-            .Address
-            .Coordinates
-            .Longitude;
+        MapperUtil.MapEditClientProfile(profileDto, clientEntity!);
 
         try
         {
@@ -64,7 +49,7 @@ public class ClientProfileController : ControllerBase
     public async Task<IActionResult> GetProfile()
     {
         var clientEntity = HttpContext.Items["Client"] as Client;
-        var clientProfileDto = new ClientProfileDto
+        var clientProfileDto = new ProfileDto
         {
             FirstName = clientEntity!.FirstName,
             LastName = clientEntity.LastName,
