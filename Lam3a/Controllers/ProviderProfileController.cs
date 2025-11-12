@@ -1,4 +1,5 @@
 using Lam3a.Data;
+using Lam3a.Data.ValueObjects;
 using Lam3a.Dto;
 using Lam3a.Filters;
 using Lam3a.Utils;
@@ -25,7 +26,7 @@ public class ProviderProfileController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPut("editProfile", Name = "EditProfile")]
+    [HttpPut("editProfile", Name = "EditProviderProfile")]
     public async Task<IActionResult> EditProfile([FromBody] ProfileDto providerProfileDto)
     {
         var providerEntity = HttpContext.Items["Provider"] as ServiceProvider;
@@ -47,7 +48,7 @@ public class ProviderProfileController : ControllerBase
         }
     }
 
-    [HttpGet("getProfile", Name = "GetProfile")]
+    [HttpGet("getProfile", Name = "GetProviderProfile")]
     public async Task<IActionResult> GetProfile()
     {
         var providerEntity = HttpContext.Items["Provider"] as ServiceProvider;
@@ -71,5 +72,29 @@ public class ProviderProfileController : ControllerBase
         };
 
         return Ok(serviceProviderProfileDto);
+    }
+
+    [HttpPost("editAvailability", Name = "EditProviderAvailability")]
+    public async Task<IActionResult> EditAvailability([FromBody] AvailabilityDto availabilityDto)
+    {
+        var providerEntity = HttpContext.Items["Provider"] as ServiceProvider;
+
+        _context.Schedules.RemoveRange(providerEntity!.Schedules);
+        foreach (var dayDto in availabilityDto.Availability)
+        {
+            var schedule = new Schedule
+            {
+                Day = dayDto.Day,
+                ServiceProviderId = providerEntity.UserId,
+                ServiceProvider = providerEntity,
+                TimeSlots = dayDto
+                    .TimeSlots.Select(slot => new TimeSlot { Start = slot.Start, End = slot.End })
+                    .ToList(),
+            };
+            _context.Schedules.Add(schedule);
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok(new { message = "Availability updated successfully" });
     }
 }

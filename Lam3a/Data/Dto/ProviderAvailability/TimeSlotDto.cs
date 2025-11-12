@@ -1,6 +1,6 @@
-namespace Lam3a.Data.ValueObjects;
+namespace Lam3a.Dto;
 
-public class TimeRange
+public class TimeSlotDto
 {
     public TimeSpan Start { get; set; }
     public TimeSpan End { get; set; }
