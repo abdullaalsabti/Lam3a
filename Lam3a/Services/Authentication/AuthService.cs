@@ -12,7 +12,7 @@ public static class AuthService
     private const int HashSize = 64;
     private const int Iterations = 100_000;
     private const int TokenSize = 64; // bytes
-    private static readonly int JwtExpiryMinutes = 15;
+    private static readonly int JwtExpiryMinutes = 120;
 
     private static readonly string Pepper =
         Environment.GetEnvironmentVariable("APP_PEPPER")

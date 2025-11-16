@@ -29,9 +29,7 @@ public class VehicleController : ControllerBase
     public async Task<IActionResult> GetAllVehicles()
     {
         var clientEntity = HttpContext.Items["Client"] as Client;
-        if (clientEntity == null)
-            return Unauthorized(new { error = "Client not found in request context." });
-
+      
         try
         {
             var vehicles = await _context

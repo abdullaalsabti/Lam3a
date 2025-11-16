@@ -7,6 +7,7 @@ using Lam3a.Services.Authentication;
 using Lam3a.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ServiceProvider = Lam3a.Data.Entities.ServiceProvider;
 
 namespace Lam3a.Controllers;
 
@@ -42,29 +43,53 @@ public class AuthController : ControllerBase
             var salt = AuthService.GeneratePasswordSalt();
             var hash = AuthService.GeneratePasswordHash(registerDto.Password, salt);
 
-            // Create new user entity
-            var newUser = new Client
-            {
-                Email = registerDto.Email,
-                Role = registerDto.Role,
-                PasswordHash = hash,
-                PasswordSalt = salt,
-                FirstName = "",
-                LastName = "",
-                Phone = "",
-                Gender = Gender.Male,
-                UserAccountStatus = UserAccountStatus.Unverified,
-                Address = new Address { BuildingNumber = "", Street = "" },
-            };
+            var returnedId = "";
 
-            var newlyAddedUser = _context.Users.Add(newUser);
+            // Create new user entity
+            if (registerDto.Role == Role.Client)
+            {
+                var newUser = new Client
+                {
+                    Email = registerDto.Email,
+                    Role = registerDto.Role,
+                    PasswordHash = hash,
+                    PasswordSalt = salt,
+                    FirstName = "",
+                    LastName = "",
+                    Phone = "",
+                    Gender = Gender.Male,
+                    UserAccountStatus = UserAccountStatus.Unverified,
+                    Address = new Address { BuildingNumber = "", Street = "" },
+                };
+
+                returnedId = _context.Clients.Add(newUser).Entity.UserId.ToString();
+            }
+            else if (registerDto.Role == Role.Provider)
+            {
+                var newUser = new ServiceProvider
+                {
+                    Email = registerDto.Email,
+                    Role = registerDto.Role,
+                    PasswordHash = hash,
+                    PasswordSalt = salt,
+                    FirstName = "",
+                    LastName = "",
+                    Phone = "",
+                    Gender = Gender.Male,
+                    UserAccountStatus = UserAccountStatus.Unverified,
+                    Address = new Address { BuildingNumber = "", Street = "" },
+                };
+
+                returnedId = _context.ServiceProviders.Add(newUser).Entity.UserId.ToString();
+            }
+
             await _context.SaveChangesAsync();
 
             return Ok(
                 new
                 {
                     message = "User registered successfully. Please verify your phone number.",
-                    userId = newlyAddedUser.Entity.UserId.ToString(),
+                    userId = returnedId,
                 }
             );
         }

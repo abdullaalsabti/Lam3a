@@ -3,6 +3,7 @@ using Lam3a.Data.Configuration;
 using Lam3a.Data.Entities;
 using Lam3a.Data.ValueObjects;
 using Microsoft.EntityFrameworkCore;
+using ServiceProvider = Lam3a.Data.Entities.ServiceProvider;
 
 namespace Lam3a.Data;
 
@@ -13,6 +14,8 @@ public class DataContextEf : DbContext
 
     //User Related:
     public DbSet<User> Users { get; set; }
+    public DbSet<Client> Clients { get; set; }
+    public DbSet<ServiceProvider> ServiceProviders { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<Notification> Notifications { get; set; }
@@ -26,8 +29,8 @@ public class DataContextEf : DbContext
     //Services:
     public DbSet<ProviderService> ProviderServices { get; set; }
     public DbSet<ServiceRequest> ServiceRequests { get; set; }
+    // public DbSet<ServiceCategory> ServiceCategories { get; set; }
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
-    public DbSet<ServiceTag> ServiceTags { get; set; }
     public DbSet<FavoriteProvider> FavoriteProviders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
