@@ -15,7 +15,6 @@ public class DataContextEf : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<ServiceProvider> ServiceProviders { get; set; }
-
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Address> Addresses { get; set; }
@@ -32,8 +31,8 @@ public class DataContextEf : DbContext
     //Services:
     public DbSet<ProviderService> ProviderServices { get; set; }
     public DbSet<ServiceRequest> ServiceRequests { get; set; }
+    // public DbSet<ServiceCategory> ServiceCategories { get; set; }
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
-    public DbSet<ServiceTag> ServiceTags { get; set; }
     public DbSet<FavoriteProvider> FavoriteProviders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -44,8 +44,8 @@ public class ClientAuthorizeAttribute : Attribute, IAsyncActionFilter
             return;
         }
 
-        var client = await _context
-            .Clients.Include(u => u.Address)
+        var client = await _context.Clients.Include(u => u.Address)
+            .Include(u => u.Vehicles)
             .FirstOrDefaultAsync(u => u.UserId == userId.Value);
 
         if (client == null)
@@ -59,6 +59,8 @@ public class ClientAuthorizeAttribute : Attribute, IAsyncActionFilter
 
         // Store the user entity in HttpContext.Items so the controller can access it
         context.HttpContext.Items["Client"] = client;
+        Console.WriteLine(client);
+        
 
         await next();
     }

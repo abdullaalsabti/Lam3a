@@ -9,7 +9,6 @@ public class ServiceRequest
     public TimeSlot TimeSlot { get; set; } = new();
     public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
     public ServiceStatus Status { get; set; }
-
     //Navigation Properties:
     public Address Address { get; set; }
     public Guid TimeSlotId { get; set; }
