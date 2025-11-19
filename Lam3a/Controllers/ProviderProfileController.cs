@@ -74,7 +74,7 @@ public class ProviderProfileController : ControllerBase
         return Ok(serviceProviderProfileDto);
     }
 
-    [HttpPost("editAvailability", Name = "EditProviderAvailability")]
+    [HttpPut("editAvailability", Name = "EditProviderAvailability")]
     public async Task<IActionResult> EditAvailability([FromBody] AvailabilityDto availabilityDto)
     {
         var providerEntity = HttpContext.Items["Provider"] as ServiceProvider;

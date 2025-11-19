@@ -45,7 +45,9 @@ public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
         }
 
         var provider = await _context
-            .Users.Include(u => u.Address)
+            .ServiceProviders.Include(u => u.Address)
+            .Include(u => u.Schedules)
+            .ThenInclude(sc => sc.TimeSlots)
             .FirstOrDefaultAsync(u => u.UserId == userId.Value);
 
         if (provider == null)

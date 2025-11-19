@@ -45,7 +45,7 @@ public class ClientAuthorizeAttribute : Attribute, IAsyncActionFilter
         }
 
         var client = await _context
-            .Users.Include(u => u.Address)
+            .Clients.Include(u => u.Address)
             .FirstOrDefaultAsync(u => u.UserId == userId.Value);
 
         if (client == null)
