@@ -9,13 +9,13 @@ public class ServiceRequestConfiguration : IEntityTypeConfiguration<ServiceReque
     public void Configure(EntityTypeBuilder<ServiceRequest> builder)
     {
         builder.ToTable("ServiceRequests").HasKey(rq => rq.Id);
-        builder.OwnsOne(
-            rq => rq.TimeRange,
-            tr =>
-            {
-                //can customize column names here later but no need now...
-            }
-        );
+
+        builder
+            .HasOne(rq => rq.TimeSlot)
+            .WithMany()
+            .HasForeignKey(rq => rq.TimeSlotId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder
             .HasOne(sr => sr.ProviderService)
             .WithMany(s => s.ServiceRequests)

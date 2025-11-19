@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lam3a.Filters;
 
-public class ClientAuthorizeAttribute : Attribute, IAsyncActionFilter
+public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
 {
     private readonly DataContextEf _context;
 
-    public ClientAuthorizeAttribute(DataContextEf context)
+    public ProviderAuthorizeAttribute(DataContextEf context)
     {
         _context = context;
     }
@@ -33,7 +33,7 @@ public class ClientAuthorizeAttribute : Attribute, IAsyncActionFilter
             return;
         }
 
-        if (!ClaimsService.IsClient(user))
+        if (!ClaimsService.IsProvider(user))
         {
             context.Result = new ObjectResult(
                 new { message = "Only clients can access this endpoint." }
@@ -44,11 +44,13 @@ public class ClientAuthorizeAttribute : Attribute, IAsyncActionFilter
             return;
         }
 
-        var client = await _context
-            .Clients.Include(u => u.Address)
+        var provider = await _context
+            .ServiceProviders.Include(u => u.Address)
+            .Include(u => u.Schedules)
+            .ThenInclude(sc => sc.TimeSlots)
             .FirstOrDefaultAsync(u => u.UserId == userId.Value);
 
-        if (client == null)
+        if (provider == null)
         {
             context.Result = new ObjectResult(new { message = "User not found or invalid." })
             {
@@ -58,7 +60,7 @@ public class ClientAuthorizeAttribute : Attribute, IAsyncActionFilter
         }
 
         // Store the user entity in HttpContext.Items so the controller can access it
-        context.HttpContext.Items["Client"] = client;
+        context.HttpContext.Items["Provider"] = provider;
 
         await next();
     }

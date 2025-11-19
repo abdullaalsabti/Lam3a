@@ -10,12 +10,16 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
     {
         builder.ToTable("Schedules").HasKey(s => s.ScheduleId);
 
-        builder.OwnsOne(
-            s => s.TimeRange,
-            tr =>
-            {
-                //can customize column names here later but no need now...s
-            }
-        );
+        builder
+            .HasOne(s => s.ServiceProvider)
+            .WithMany(p => p.Schedules)
+            .HasForeignKey(s => s.ServiceProviderId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasMany(s => s.TimeSlots)
+            .WithOne(ts => ts.Schedule)
+            .HasForeignKey(ts => ts.ScheduleId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
