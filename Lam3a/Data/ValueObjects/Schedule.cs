@@ -8,7 +8,7 @@ public class Schedule
     public string Day { get; set; } = null!;
 
     // Navigation
-    public TimeRange TimeRange { get; set; } = new();
+    public List<TimeSlot> TimeSlots { get; set; } = new();
     public Guid ServiceProviderId { get; set; }
     public ServiceProvider ServiceProvider { get; set; } = null!;
 }

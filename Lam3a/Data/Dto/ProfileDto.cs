@@ -3,7 +3,7 @@ using Lam3a.Utils;
 
 namespace Lam3a.Dto;
 
-public class ClientProfileDto
+public class ProfileDto
 {
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
@@ -28,7 +28,7 @@ public class CoordinatesDto
     public decimal Longitude { get; set; }
 }
 
-public class ClientProfileDtoValidator : AbstractValidator<ClientProfileDto>
+public class ClientProfileDtoValidator : AbstractValidator<ProfileDto>
 {
     public ClientProfileDtoValidator()
     {

@@ -1,4 +1,4 @@
-﻿using Lam3a.Data;
+using Lam3a.Data;
 using Lam3a.Services.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -50,6 +50,8 @@ public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
         var provider = await _context.ServiceProviders
             .Include(u => u.Address)
             .Include(u => u.Services)
+            .Include(u => u.Schedules)
+                .ThenInclude(sc => sc.TimeSlots)
             .FirstOrDefaultAsync(u => u.UserId == userId.Value);
 
         if (provider == null)
@@ -67,5 +69,3 @@ public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
         await next();
     }
 }
-
-    

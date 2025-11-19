@@ -26,7 +26,6 @@
     <Folder Include="Cache\" />
     <Folder Include="Messaging\" />
     <Folder Include="Middleware\" />
-    <Folder Include="Utils\" />
     <Folder Include="Validators\" />
   </ItemGroup>
   <ItemGroup>
