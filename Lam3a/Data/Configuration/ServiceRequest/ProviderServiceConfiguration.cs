@@ -14,10 +14,13 @@ public class ProviderServiceConfiguration : IEntityTypeConfiguration<ProviderSer
         builder
             .HasOne(s => s.ServiceProvider)
             .WithMany(sp => sp.Services)
-            .HasForeignKey(s => s.Id);
+            .HasForeignKey(s => s.UserId);
 
-        builder.HasOne(s => s.ServiceCategory).WithMany(sc => sc.Services).HasForeignKey(s => s.Id);
+        builder
+            .HasOne(s => s.ServiceCategory)
+            .WithMany(sc => sc.Services)
+            .HasForeignKey(s => s.ServiceCategoryId);
 
-        builder.HasMany(s => s.ServiceTags).WithMany(st => st.Services);
+        // builder.HasMany(s => s.ServiceTags).WithMany(st => st.Services);
     }
 }

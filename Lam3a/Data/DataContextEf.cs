@@ -1,5 +1,6 @@
 using System.Reflection;
 using Lam3a.Data.Entities;
+using Lam3a.Data.Seeders;
 using Lam3a.Data.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using ServiceProvider = Lam3a.Data.Entities.ServiceProvider;
@@ -35,6 +36,9 @@ public class DataContextEf : DbContext
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
     public DbSet<ServiceTag> ServiceTags { get; set; }
     public DbSet<FavoriteProvider> FavoriteProviders { get; set; }
+
+    //Seeding:
+    public DbSet<SeedStatus> SeedStatus { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
