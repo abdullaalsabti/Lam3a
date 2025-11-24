@@ -3,6 +3,7 @@ using DotNetEnv;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Lam3a.Data;
+using Lam3a.Data.Seeders;
 using Lam3a.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Timeouts;
@@ -87,6 +88,12 @@ builder.Services.AddRequestTimeouts(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DataContextEfSeeder.SeedAsync(services);
+}
 
 // CONFIGURE THE HTTP REQUEST PIPELINE.
 if (app.Environment.IsDevelopment())

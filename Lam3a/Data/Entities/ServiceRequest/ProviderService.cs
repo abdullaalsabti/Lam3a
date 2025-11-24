@@ -13,8 +13,10 @@ public class ProviderService
     public Guid UserId { get; set; }          // FK → ServiceProvider
     public Guid CategoryId { get; set; }    // FK → ServiceTag
 
-    // Navigation
+    public ServiceCategory ServiceCategory { get; set; }
+    public Guid ServiceCategoryId { get; set; }
     public ServiceProvider ServiceProvider { get; set; }
     public List<ServiceRequest> ServiceRequests { get; set; }
-    public ServiceCategory ServiceCategory { get; set; }
+    public List<ServiceTag> ServiceTags { get; set; }
+    public Guid ServiceTagId { get; set; }
 }
