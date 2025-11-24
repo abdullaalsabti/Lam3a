@@ -32,8 +32,10 @@ public class DataContextEf : DbContext
     //Services:
     public DbSet<ProviderService> ProviderServices { get; set; }
     public DbSet<ServiceRequest> ServiceRequests { get; set; }
+
     // public DbSet<ServiceCategory> ServiceCategories { get; set; }
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
+    public DbSet<ServiceTag> ServiceTags { get; set; }
     public DbSet<FavoriteProvider> FavoriteProviders { get; set; }
 
     //Seeding:
