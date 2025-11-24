@@ -1,14 +1,17 @@
-namespace Lam3a.Data.Entities;
+using System.Text.Json.Serialization;
+using Lam3a.Data.Entities;
+using ServiceProvider = Lam3a.Data.Entities.ServiceProvider;
 
 public class ProviderService
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public required decimal Price { get; set; }
-    public required string Description { get; set; }
-    public required int EstimatedTime { get; set; }
+    public decimal Price { get; set; }
+    public string Description { get; set; }
+    public int EstimatedTime { get; set; }
 
-    //Navigation
-    public Guid UserId { get; set; }
+    // FK
+    public Guid UserId { get; set; }          // FK → ServiceProvider
+    public Guid CategoryId { get; set; }    // FK → ServiceTag
 
     public ServiceCategory ServiceCategory { get; set; }
     public Guid ServiceCategoryId { get; set; }

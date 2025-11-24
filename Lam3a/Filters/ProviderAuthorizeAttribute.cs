@@ -3,11 +3,13 @@ using Lam3a.Services.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using ServiceProvider = Lam3a.Data.Entities.ServiceProvider;
 
 namespace Lam3a.Filters;
 
 public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
 {
+    
     private readonly DataContextEf _context;
 
     public ProviderAuthorizeAttribute(DataContextEf context)
@@ -19,6 +21,7 @@ public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
+    
     {
         var user = context.HttpContext.User;
 
@@ -36,7 +39,7 @@ public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
         if (!ClaimsService.IsProvider(user))
         {
             context.Result = new ObjectResult(
-                new { message = "Only clients can access this endpoint." }
+                new { message = "Only providers can access this endpoint." }
             )
             {
                 StatusCode = StatusCodes.Status403Forbidden,
@@ -44,10 +47,11 @@ public class ProviderAuthorizeAttribute : Attribute, IAsyncActionFilter
             return;
         }
 
-        var provider = await _context
-            .ServiceProviders.Include(u => u.Address)
+        var provider = await _context.ServiceProviders
+            .Include(u => u.Address)
+            .Include(u => u.Services)
             .Include(u => u.Schedules)
-            .ThenInclude(sc => sc.TimeSlots)
+                .ThenInclude(sc => sc.TimeSlots)
             .FirstOrDefaultAsync(u => u.UserId == userId.Value);
 
         if (provider == null)

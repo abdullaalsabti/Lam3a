@@ -27,6 +27,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<ClientProfileDtoValidator>(
 builder.Services.AddValidatorsFromAssemblyContaining<AddressDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CoordinatesDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<VehicleDTOValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<ProviderServiceDTOValidator>();
 
 // DATABASE CONFIG AND DB CONTEXT.
 var dbPassword =
