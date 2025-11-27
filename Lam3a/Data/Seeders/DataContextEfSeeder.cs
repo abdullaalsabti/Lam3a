@@ -1,3 +1,4 @@
+using Lam3a.Data.Entities;
 using Lam3a.Data.Seeders.Fakers;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,14 +50,14 @@ public class DataContextEfSeeder
 
         //seed provider's offered services
         var categories = context.ServiceCategories.ToList();
-        var tags = context.ServiceTags.ToList();
+        // var tags = context.ServiceTags.ToList();
 
         foreach (var provider in serviceProviders)
         {
             var providerServices = ProviderServiceFaker.GenerateForProvider(
                 provider,
-                categories,
-                tags
+                categories
+                // tags
             );
             context.ProviderServices.AddRange(providerServices);
         }

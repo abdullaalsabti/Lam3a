@@ -8,83 +8,83 @@ public class ServiceCategoryConfiguration : IEntityTypeConfiguration<ServiceCate
 {
     public void Configure(EntityTypeBuilder<ServiceCategory> builder)
     {
-        builder.ToTable("ServiceCategories").HasKey(sc => sc.CategoryId);
+        builder.ToTable("ServiceCategories").HasKey(sc => sc.Id);
 
         builder.HasData(
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000001"),
-                CategoryName = "Dry Clean",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000001"),
+                Name = "Dry Clean",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000002"),
-                CategoryName = "Exterior Wash",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000002"),
+                Name = "Exterior Wash",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000003"),
-                CategoryName = "Interior Wash",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000003"),
+                Name = "Interior Wash",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000004"),
-                CategoryName = "Full Wash",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000004"),
+                Name = "Full Wash",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000005"),
-                CategoryName = "Wax & Polish",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000005"),
+                Name = "Wax & Polish",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000006"),
-                CategoryName = "Interior Detailing",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000006"),
+                Name = "Interior Detailing",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000007"),
-                CategoryName = "Exterior Detailing",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000007"),
+                Name = "Exterior Detailing",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000008"),
-                CategoryName = "Headlight Restoration",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000008"),
+                Name = "Headlight Restoration",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-000000000009"),
-                CategoryName = "Leather Seat Conditioning",
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000009"),
+                Name = "Leather Seat Conditioning",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-00000000000a"),
-                CategoryName = "Odor Removal / Ozone Treatment",
+                Id = Guid.Parse("10000000-0000-0000-0000-00000000000a"),
+                Name = "Odor Removal / Ozone Treatment",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-00000000000b"),
-                CategoryName = "Ceramic Coating",
+                Id = Guid.Parse("10000000-0000-0000-0000-00000000000b"),
+                Name = "Ceramic Coating",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-00000000000c"),
-                CategoryName = "Paint Protection Film (PPF)",
+                Id = Guid.Parse("10000000-0000-0000-0000-00000000000c"),
+                Name = "Paint Protection Film (PPF)",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-00000000000d"),
-                CategoryName = "Engine Bay Cleaning",
+                Id = Guid.Parse("10000000-0000-0000-0000-00000000000d"),
+                Name = "Engine Bay Cleaning",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-00000000000e"),
-                CategoryName = "Underbody Wash",
+                Id = Guid.Parse("10000000-0000-0000-0000-00000000000e"),
+                Name = "Underbody Wash",
             },
             new ServiceCategory
             {
-                CategoryId = Guid.Parse("10000000-0000-0000-0000-00000000000f"),
-                CategoryName = "Tire & Rim Polishing",
+                Id = Guid.Parse("10000000-0000-0000-0000-00000000000f"),
+                Name = "Tire & Rim Polishing",
             }
         );
     }

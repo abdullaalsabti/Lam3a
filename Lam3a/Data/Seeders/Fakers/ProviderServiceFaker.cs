@@ -8,8 +8,8 @@ public class ProviderServiceFaker
 {
     public static List<ProviderService> GenerateForProvider(
         ServiceProvider provider,
-        List<ServiceCategory> categories,
-        List<ServiceTag> tags
+        List<ServiceCategory> categories
+        // List<ServiceTag> tags
     )
     {
         var faker = new Faker();
@@ -27,7 +27,7 @@ public class ProviderServiceFaker
                 Description = faker.Lorem.Sentence(),
                 EstimatedTime = faker.PickRandom(30, 60, 90, 120),
                 UserId = provider.UserId,
-                ServiceCategoryId = category.CategoryId,
+                CategoryId = category.Id,
             };
             services.Add(service);
         }

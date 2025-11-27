@@ -76,7 +76,14 @@ public class ClientProfileController : ControllerBase
     {
         var clientEntity = HttpContext.Items["Client"] as Client;
 
-        var addressDto = new AddressDto
+        var addressDto = GetAddressService(clientEntity);
+
+        return Ok(addressDto);
+    }
+
+    private AddressDto GetAddressService(Client clientEntity)
+    {
+        return new AddressDto
         {
             Street = clientEntity!.Address.Street,
             BuildingNumber = clientEntity.Address.BuildingNumber,
@@ -87,8 +94,6 @@ public class ClientProfileController : ControllerBase
                 Longitude = clientEntity.Address.MapCoordinates.Longitude,
             },
         };
-
-        return Ok(addressDto);
     }
 
     [HttpPut("editAddress", Name = "EditAddress")]

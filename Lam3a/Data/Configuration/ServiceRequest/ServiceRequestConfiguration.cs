@@ -17,9 +17,9 @@ public class ServiceRequestConfiguration : IEntityTypeConfiguration<ServiceReque
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
-            .HasOne(sr => sr.ProviderService)
+            .HasOne(sr => sr.Service)
             .WithMany(s => s.ServiceRequests)
             .HasForeignKey(sr => sr.ServiceId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

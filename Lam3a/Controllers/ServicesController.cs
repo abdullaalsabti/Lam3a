@@ -29,8 +29,8 @@ public class ServicesController : ControllerBase
             var categories = await _context.ServiceCategories.ToListAsync();
             var result  = categories.Select(category => new
             {
-                id = category.CategoryId,
-                name = category.CategoryName
+                id = category.Id,
+                name = category.Name
             });
             
             return Ok(result);
@@ -50,17 +50,17 @@ public class ServicesController : ControllerBase
             var provider = HttpContext.Items["Provider"] as ServiceProvider;
 
             var services = await _context.ProviderServices
-                .Include(s => s.ServiceCategory)
+                .Include(s => s.Category)
                 .Where(s => s.UserId == provider.UserId)
                 .ToListAsync();
 
             var result = services.Select(service => new
             {
                 id = service.Id,
-                categoryId = service.ServiceCategory.CategoryId,
+                categoryId = service.Category.Id,
                 description = service.Description,
                 price = service.Price,
-                category = service.ServiceCategory.CategoryName,
+                category = service.Category.Name,
                 estimatedTime = service.EstimatedTime
             });
 
@@ -125,7 +125,7 @@ public class ServicesController : ControllerBase
             if (service.UserId != provider.UserId)
                 return Unauthorized(new { error = "You cannot update this service" });
 
-            var tagExists = await _context.ServiceCategories.AnyAsync(category => category.CategoryId == serviceDTO.CategoryId);
+            var tagExists = await _context.ServiceCategories.AnyAsync(category => category.Id == serviceDTO.CategoryId);
             if (!tagExists)
                 return BadRequest(new { error = "Invalid ServiceTagId" });
             

@@ -1,10 +1,12 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using DotNetEnv;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Lam3a.Data;
 using Lam3a.Data.Seeders;
 using Lam3a.Dto;
+using Lam3a.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<AddressDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CoordinatesDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<VehicleDTOValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<ProviderServiceDTOValidator>();
+
+//services
+builder.Services.AddScoped<ClientHomeService>();
+builder.Services.AddScoped<VehicleService>();
 
 // DATABASE CONFIG AND DB CONTEXT.
 var dbPassword =
@@ -68,6 +74,12 @@ builder.Services.AddHybridCache(options =>
     //configure hybrid L1 + L2 cache.
     //L1: memory cache (RAM)
     //L2: redis (fast cache service - like a DB)
+});
+
+//converting enum indexes to strings for the frontend
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 // TIMEOUTS

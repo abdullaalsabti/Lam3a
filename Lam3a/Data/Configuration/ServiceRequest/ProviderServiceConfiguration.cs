@@ -17,9 +17,9 @@ public class ProviderServiceConfiguration : IEntityTypeConfiguration<ProviderSer
             .HasForeignKey(s => s.UserId);
 
         builder
-            .HasOne(s => s.ServiceCategory)
+            .HasOne(s => s.Category)
             .WithMany(sc => sc.Services)
-            .HasForeignKey(s => s.ServiceCategoryId);
+            .HasForeignKey(s => s.CategoryId);
 
         // builder.HasMany(s => s.ServiceTags).WithMany(st => st.Services);
     }

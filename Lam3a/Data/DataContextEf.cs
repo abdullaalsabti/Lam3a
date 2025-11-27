@@ -35,7 +35,7 @@ public class DataContextEf : DbContext
 
     // public DbSet<ServiceCategory> ServiceCategories { get; set; }
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
-    public DbSet<ServiceTag> ServiceTags { get; set; }
+    // public DbSet<ServiceTag> ServiceTags { get; set; }
     public DbSet<FavoriteProvider> FavoriteProviders { get; set; }
 
     //Seeding:

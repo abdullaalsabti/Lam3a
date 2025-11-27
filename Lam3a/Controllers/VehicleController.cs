@@ -2,9 +2,11 @@
 using Lam3a.Data.Entities;
 using Lam3a.Dto;
 using Lam3a.Filters;
+using Lam3a.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Vehicle = Lam3a.Data.Entities.Vehicle;
 
 namespace Lam3a.Controllers;
 
@@ -15,11 +17,13 @@ namespace Lam3a.Controllers;
 [TypeFilter(typeof(ClientAuthorizeAttribute))]
 public class VehicleController : ControllerBase
 {
+    private VehicleService _vehicleService;
     private readonly DataContextEf _context;
     private readonly ILogger<VehicleController> _logger;
 
-    public VehicleController(DataContextEf context, ILogger<VehicleController> logger)
+    public VehicleController(DataContextEf context, ILogger<VehicleController> logger , VehicleService vehicleService)
     {
+        _vehicleService = vehicleService;
         _context = context;
         _logger = logger;
     }
@@ -27,29 +31,12 @@ public class VehicleController : ControllerBase
     //get all vehicles
     [HttpGet("getVehicles", Name = "GetVehicles")]
     public async Task<IActionResult> GetAllVehicles()
-    {
+    {   
         var clientEntity = HttpContext.Items["Client"] as Client;
-      
         try
         {
-            var vehicles = await _context
-                .Vehicles.Include(v => v.Brand)
-                .Include(v => v.Model)
-                .Where(v => v.ClientId == clientEntity.UserId)
-                .ToListAsync();
-
-            var vehiclesDto = vehicles
-                .Select(v => new
-                {
-                    v.PlateNumber,
-                    BrandName = v.Brand?.Name ?? "Unknown",
-                    ModelName = v.Model?.Name ?? "Unknown",
-                    color = v.Color.ToString(),
-                    type = v.CarType.ToString(),
-                })
-                .ToList();
-
-            return Ok(vehiclesDto);
+            List<VehicleOutputDTO> vehicles = await _vehicleService.GetVehiclesAsync(clientEntity);
+            return Ok(vehicles);
         }
         catch (Exception e)
         {
@@ -60,6 +47,8 @@ public class VehicleController : ControllerBase
             );
         }
     }
+
+
 
     //get one vehicle (id)
     [HttpGet("{plateNumber}")]
@@ -196,6 +185,7 @@ public class VehicleController : ControllerBase
             );
         }
     }
+    
 
     // Async existence check
     private async Task<bool> IsExistAsync(string plateNumber)

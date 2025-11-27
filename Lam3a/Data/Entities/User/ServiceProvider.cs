@@ -11,6 +11,7 @@ public class ServiceProvider : User
     // Navigation Properties:
     public List<Schedule> Schedules { get; set; } = new();
     public List<ProviderService> Services { get; set; } = new();
+    public List<ServiceRequest> ServiceRequests { get; set; }
 
     public List<FavoriteProvider> FavoritedByClients { get; set; } = new();
 }
